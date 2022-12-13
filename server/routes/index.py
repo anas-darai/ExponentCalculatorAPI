@@ -16,3 +16,17 @@ def page_not_found(error):
 @app.route("/error500")
 def requests_error(error):
     return app.send_static_file('500.html')
+
+
+
+from flask import request,jsonify
+
+@app.route('/calcPower', methods=['GET'])
+def calcPower():
+    args = request.args
+    x = args.get("x", default=1, type=int)
+    y = args.get("y", default=1, type=int)
+    
+    response = jsonify({"result": str(x**y)})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
